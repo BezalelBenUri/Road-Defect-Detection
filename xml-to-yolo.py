@@ -96,6 +96,31 @@ def convert_dataset(data_folder, annotations_folder):
             image_name, bounding_boxes = convert_annotation(xml_file, annotations_folder)
             visualize_annotation(data_folder, image_name, bounding_boxes)
 
+
+def remove_empty_annotations(data_folder, annotations_folder):
+    """
+    Removes empty annotation files and their corresponding image files.
+
+    This function iterates through all text files in the specified annotations folder.
+    If a text file is empty (has a size of 0 bytes), it is deleted along with its
+    corresponding image file (with the same name but .jpg extension) from the data folder.
+
+    Args:
+        data_folder (str): Path to the folder containing the image files.
+        annotations_folder (str): Path to the folder containing the annotation files.
+    """
+
+    for txt_file in os.listdir(annotations_folder):
+        txt_path = os.path.join(annotations_folder, txt_file)
+        if os.path.getsize(txt_path) == 0:
+            image_file = txt_file.replace(".txt", ".jpg")
+            image_path = os.path.join(data_folder, image_file)
+            os.remove(txt_path)
+            if os.path.exists(image_path):
+                os.remove(image_path)
+            print(f"Removed empty annotation and corresponding image: {txt_file}, {image_file}")
+
+
 def visualize_annotation(data_folder, image_name, bounding_boxes):
     """
       Visualizes an image with its corresponding bounding boxes.

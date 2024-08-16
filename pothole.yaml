@@ -1,0 +1,5 @@
+train: D:\\AI\\Documents\\Programming\\Road Defect\\images\\train
+val: D:\\AI\\Documents\\Programming\\Road Defect\\images\\test
+
+nc: 4
+names: ["Pothole", "Longitudinal Crack", "Transverse Crack", "Alligator Crack"]
